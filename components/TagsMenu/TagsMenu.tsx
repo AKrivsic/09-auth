@@ -3,18 +3,12 @@
 import { useState } from 'react';
 import css from './TagsMenu.module.css';
 import Link from 'next/link';
-import { getTags } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
+import { staticTags } from '@/lib/constants';
 
 
 const TagsMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
-  const { data: tags = [] } = useQuery({
-    queryKey: ['tags'],
-    queryFn: getTags,
-  });
 
   return (
     <div className={css.menuContainer}>
@@ -28,18 +22,17 @@ const TagsMenu = () => {
               All notes
             </Link>
           </li>
-          {Array.isArray(tags) &&
-  tags.map((tag) => (
-    <li key={tag} className={css.menuItem}>
-      <Link
-        href={`/notes/filter/${tag}`}
-        className={css.menuLink}
-        onClick={toggle}
-      >
-        {tag}
-      </Link>
-    </li>
-))}
+          {staticTags.map((tag) => (
+            <li key={tag} className={css.menuItem}>
+              <Link
+                href={`/notes/filter/${tag}`}
+                className={css.menuLink}
+                onClick={toggle}
+              >
+                {tag}
+              </Link>
+            </li>
+          ))}
         </ul>
       )}
     </div>

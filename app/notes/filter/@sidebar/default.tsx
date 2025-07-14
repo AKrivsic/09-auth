@@ -1,10 +1,8 @@
 import Link from 'next/link';
-import { getTags } from '@/lib/api';
+import { staticTags } from '@/lib/constants';
 import css from './SidebarNotes.module.css';
 
-export default async function SidebarNotes() {
-  const tags = await getTags();
-
+export default function SidebarNotes() {
   return (
     <ul className={css.menuList}>
       <li className={css.menuItem}>
@@ -12,7 +10,7 @@ export default async function SidebarNotes() {
           All notes
         </Link>
       </li>
-      {tags.map(tag => (
+      {staticTags.map(tag => (
         <li key={tag} className={css.menuItem}>
           <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
             {tag}
