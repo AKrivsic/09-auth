@@ -16,7 +16,7 @@ export default function Modal({ children }: Props) {
     <div className={css.backdrop} onClick={close}>
       <div className={css.modal} onClick={(e) => e.stopPropagation()}>
         {children}
-        <button onClick={close}>Close</button>
+        {/* <button onClick={close}>Close</button> */}
       </div>
     </div>
   );
