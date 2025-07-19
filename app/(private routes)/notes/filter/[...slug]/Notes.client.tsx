@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { fetchNotes, FetchNotesResponse } from '@/lib/api';
+import { fetchNotes } from '@/lib/api/clientApi';
+import type { FetchNotesProps } from '@/types/note';
 
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
@@ -13,7 +14,7 @@ import css from './page.module.css';
 import Link from 'next/link';
 
 type Props = {
-  initialData: FetchNotesResponse;
+  initialData: FetchNotesProps;
   tag?: string;
 };
 
@@ -24,7 +25,7 @@ export default function NotesClient({ initialData, tag }: Props) {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
 
-   const { data } = useQuery<FetchNotesResponse>({
+   const { data } = useQuery<FetchNotesProps>({
     queryKey: ['notes', page, debouncedSearch, tag],
     queryFn: () =>
       fetchNotes({

@@ -1,6 +1,7 @@
 import css from './Header.module.css';
 import Link from 'next/link';
 import TagsMenu from '../TagsMenu/TagsMenu';
+import AuthNavigation from '@/components/AuthNavigation/AuthNavigation'
 
 const Header = async () => {
   return (
@@ -13,6 +14,7 @@ const Header = async () => {
       <li>
         <TagsMenu />
       </li>
+      <AuthNavigation />
     </ul>
   </nav>
 </header>

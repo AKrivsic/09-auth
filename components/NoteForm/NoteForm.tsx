@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import css from './NoteForm.module.css';
 
-import { createNote } from '@/lib/api';
+import { createNote } from '@/lib/api/clientApi';
 import { useNoteDraftStore } from '@/lib/store/noteStore';
 
 const validationSchema = Yup.object({

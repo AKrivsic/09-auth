@@ -29,7 +29,7 @@ export const useNoteDraftStore = create<NoteDraftStore>()(
     }),
     {
       name: 'note-draft',
-      partialize: (store) => ({ draft: store.draft }), 
+      partialize: (store) => ({ draft: store.draft }),
     }
   )
 );

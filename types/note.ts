@@ -1,10 +1,22 @@
+export type Tag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
+
 export interface Note {
-  id: number;
+  id: string;
   title: string;
   content: string;
-  tag: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
+  tag: Tag;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string; 
 }
 
-export type Tag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
+export interface NewNote {
+  title: string;
+  content: string;
+  tag: Tag;
+}
+
+export interface FetchNotesProps {
+  notes: Note[];
+  totalPages: number;
+  currentPage: number;
+}
