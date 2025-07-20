@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { api } from '../../api';
 
 export async function GET() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   try {
     const { data } = await api.get('/users/me', {
@@ -22,7 +22,7 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   try {
     const body = await request.json();

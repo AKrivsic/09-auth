@@ -4,7 +4,6 @@ import { api } from '../../api';
 
 export async function POST() {
   const cookieStore = await cookies();
-
   try {
     const accessToken = cookieStore.get('accessToken')?.value;
     const refreshToken = cookieStore.get('refreshToken')?.value;

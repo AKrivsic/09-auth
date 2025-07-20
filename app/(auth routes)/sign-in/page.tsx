@@ -20,7 +20,7 @@ const SignInPage = () => {
   const res = await login(formValues);
   if (res) {
     setUser(res);
-    router.push('/private/profile');
+    router.push('/profile');
   }
 } catch {
   setErrorMessage('Incorrect email or password.');

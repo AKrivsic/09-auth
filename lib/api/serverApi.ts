@@ -7,7 +7,7 @@ import type { AxiosResponse } from 'axios';
 
 
 export const checkServerSession = async (): Promise<AxiosResponse> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   return await nextServer.get('/auth/session', {
     headers: {
@@ -18,7 +18,7 @@ export const checkServerSession = async (): Promise<AxiosResponse> => {
 
 
 export const fetchServerUser = async (): Promise<User> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   try {
     const res = await nextServer.get<User>('/users/me', {
@@ -37,7 +37,7 @@ export const fetchServerUser = async (): Promise<User> => {
 export const updateServerUser = async (
   payload: UpdateUserProps
 ): Promise<User> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   try {
     const res = await nextServer.patch<User>('/users/me', payload, {
@@ -56,7 +56,7 @@ export const updateServerUser = async (
 
 
 export const fetchNoteByIdServer = async (id: string): Promise<Note> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   try {
     const res = await nextServer.get<Note>(`/notes/${id}`, {
@@ -77,7 +77,7 @@ export const fetchServerNotes = async (
   page: number,
   tag?: string
 ): Promise<FetchNotesProps> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   try {
     const res = await nextServer.get<FetchNotesProps>('/notes', {

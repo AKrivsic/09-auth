@@ -20,7 +20,7 @@ const SignUpPage = () => {
   const res = await register(formValues);
   if (res) {
     setUser(res);
-    router.push('/private/profile');
+    router.push('/profile');
   }
 } catch {
   setErrorMessage(

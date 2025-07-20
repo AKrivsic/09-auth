@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { nextServer } from '@/lib/api/api';
 
 export async function GET(request: NextRequest) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies(); 
   const searchParams = request.nextUrl.searchParams;
 
   const search = searchParams.get('search') ?? '';
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const cookieStore = cookies();
+  const cookieStore = cookies(); 
 
   try {
     const body = await request.json();

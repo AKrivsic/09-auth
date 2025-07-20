@@ -6,9 +6,11 @@ import { getMe, updateUser } from '@/lib/api/clientApi';
 import { UpdateUserProps } from '@/types/user';
 import Image from 'next/image';
 import css from './EditProfilePage.module.css';
+import { useAuthStore } from '@/lib/store/authStore';
 
 const EditProfile = () => {
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -16,7 +18,7 @@ const EditProfile = () => {
 
   useEffect(() => {
     getMe().then((user) => {
-      setUsername(user.userName ?? '');
+      setUsername(user.username ?? '');
       setEmail(user.email ?? '');
       setAvatar(user.avatar ?? '');
     });
@@ -28,16 +30,16 @@ const EditProfile = () => {
       const data: UpdateUserProps = { username };
       const updated = await updateUser(data);
       if (updated) {
-        router.push('/private/profile');
+        setUser(updated); 
+        router.push('/profile'); 
       }
     } catch (err) {
-      
       console.error('Update failed', err);
     }
   };
 
   const handleCancel = () => {
-    router.push('/private/profile');
+    router.push('/profile');
   };
 
   return (
@@ -84,3 +86,4 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
+

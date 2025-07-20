@@ -10,18 +10,25 @@ interface NoteListProps {
 
 const NoteList = ({ notes }: NoteListProps) => {
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
-  mutationFn: deleteNote,
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ['notes'] });
-  },
+    mutationFn: deleteNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
+    },
   });
+
   const handleDelete = (id: string) => {
     mutation.mutate(id);
   };
+
+  if (!notes || notes.length === 0) {
+    return <p className={css.message}>No notes found.</p>;
+  }
+
   return (
     <ul className={css.list}>
-      {notes.map(note => (
+      {notes.map((note) => (
         <li key={note.id} className={css.listItem}>
           <h2 className={css.title}>{note.title}</h2>
           <p className={css.content}>{note.content}</p>

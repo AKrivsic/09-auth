@@ -2,66 +2,40 @@ import { nextServer } from './api';
 import type { Note, NewNote, FetchNotesProps } from '@/types/note';
 import type { User, NewUser, UpdateUserProps } from '@/types/user';
 
-
 export const register = async (payload: NewUser): Promise<User> => {
-  const res = await fetch('/auth/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) throw new Error('Registration failed');
-
-  return await res.json();
+  const res = await nextServer.post<User>('/auth/register', payload);
+  return res.data;
 };
 
 export const login = async (payload: NewUser): Promise<User> => {
-  const res = await fetch('/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) throw new Error('Login failed');
-
-  return await res.json();
+  const res = await nextServer.post<User>('/auth/login', payload);
+  return res.data;
 };
 
 export const logout = async (): Promise<void> => {
-  await fetch('/auth/logout', {
-    method: 'POST',
-  });
+  await nextServer.post('/auth/logout');
 };
 
 export const checkSession = async (): Promise<boolean> => {
   try {
-    const res = await fetch('/auth/session');
-    const data = await res.json();
-    return res.ok && !!data?.id;
+    const res = await nextServer.get('/auth/session');
+    return res.status === 200 && typeof res.data === 'object';
   } catch {
     return false;
   }
 };
 
 export const getMe = async (): Promise<User> => {
-  const res = await fetch('/profile');
-  if (!res.ok) throw new Error('Unauthorized');
-  return await res.json();
+  const res = await nextServer.get<User>('/users/me');
+  return res.data;
 };
 
 export const updateUser = async (payload: UpdateUserProps): Promise<User> => {
-  const res = await fetch('/profile', {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) throw new Error('Update failed');
-
-  return await res.json();
+  const res = await nextServer.patch<User>('/users/me', payload);
+  return res.data;
 };
 
-
+// ✅ Notes
 export const fetchNotes = async ({
   search,
   page,
@@ -99,3 +73,4 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
   const res = await nextServer.get<Note>(`/notes/${id}`);
   return res.data;
 };
+
